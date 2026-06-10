@@ -1,0 +1,72 @@
+.caixa-principal {
+    padding: 5px; /* espaço interno */
+    margin: 5px; /* espaço fora */
+}
+
+.container {
+    margin: 4px; /* espaço fora */
+    padding: 5px; /* espaço interno */
+    background-color: rgb(152, 184, 235); /* muda a cor do plano de fundo */
+}
+
+.linha {
+    display: flex; /* faz os itens filhos ficarem um ao lado do outro */
+}
+
+.caixa-azul {
+    background-color: rgb(152, 184, 235); /* muda a cor do plano de fundo */
+    height: 200px; /* altura */
+    width: 200px; /* largura */
+    padding: 5px; /* espaço interno */
+    margin: 4px; /* espaço fora */
+}
+
+.caixa-cinza {
+    background-color: rgb(159, 159, 159); /* muda a cor do plano de fundo */
+    height: 200px; /* altura */
+    width: 200px; /* largura */
+    padding:5px; /* espaço interno */
+    margin: 4px; /* espaço fora */
+}
+
+.caixa-verde {
+    background-color: rgb(177, 232, 177); /* muda a cor do plano de fundo */
+    height: 200px; /* altura */
+    width: 200px; /* largura */
+    padding: 5px; /* espaço interno */
+    margin: 4px; /* espaço fora */
+}
+
+.caixa-vermelha {
+    background-color: rgb(241, 163, 163); /* muda a cor do plano de fundo */
+    height: 200px; /* altura */
+    width: 200px; /* largura */
+    padding: 5px; /* espaço interno */
+    margin: 4px; /* espaço fora */
+}
+
+.menu {
+    background-color: #eeeeee; /* muda a cor do plano de fundo */
+    list-style: none; /* remove as bolinhas da lista */
+    margin: 2px 2px 2px 2px; /* espaço fora */
+    padding: 5px 5px 5px 5px; /* espaço interno */
+}
+
+.menu-inline {
+    display: flex; /* faz os itens filhos ficarem um ao lado do outro */
+}
+
+.menu .menu-item {
+    padding: 4px; /* espaço interno */
+}
+
+p {
+    font-size: 15px; /* mudar tamanho da fonte */
+}
+
+footer {
+    background-color: #eeeeee; /* muda a cor do plano de fundo */
+    color: #333; /* muda a cor do texto */
+    padding: 5px 5px 5px 5px; /* espaço interno */
+    margin: 2px 2px 2px 2px; /* espaço fora */
+}

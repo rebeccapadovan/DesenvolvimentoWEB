@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!-- Modelo Front - End Integrado / Modelo de página única (SPA) -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlowBeauty</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top left, #3b003f, #120018 45%, #050008);
+      overflow-x:hidden;
+      color:white;
+    }
+
+    p, h1, h2, h3, h4, h5, h6 {
+      color: white;
+    }
+
+    .bolha{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(8px);
+      opacity:0.7;
+      animation:flutuar 6s infinite alternate ease-in-out;
+      pointer-events:none;
+    }
+
+    .bolha1{
+      width:260px;
+      height:260px;
+      background:#ff003c;
+      top:-60px;
+      left:-50px;
+      box-shadow:0 0 80px #ff003c;
+    }
+
+    .bolha2{
+      width:300px;
+      height:300px;
+      background:#9d00ff;
+      bottom:-80px;
+      right:-60px;
+      box-shadow:0 0 90px #9d00ff;
+    }
+
+    .bolha3{
+      width:160px;
+      height:160px;
+      background:#ff2b8a;
+      right:18%;
+      top:12%;
+      box-shadow:0 0 70px #ff2b8a;
+    }
+
+    @keyframes flutuar{
+      from{ transform:translateY(0) scale(1); }
+      to{ transform:translateY(35px) scale(1.08); }
+    }
+
+    .container-login{
+      width:900px;
+      max-width:95%;
+      min-height:560px;
+      display:flex;
+      border-radius:30px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.18);
+      backdrop-filter:blur(18px);
+      box-shadow:
+        0 0 30px rgba(157,0,255,0.5),
+        0 0 60px rgba(255,0,60,0.25);
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      z-index:5;
+      transition:0.8s;
+    }
+
+    .lado-esquerdo{
+      flex:1;
+      padding:55px 45px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:linear-gradient(160deg, rgba(255,0,60,0.28), rgba(157,0,255,0.22));
+    }
+
+    .logo-login{
+      font-size:34px;
+      font-weight:800;
+      margin-bottom:20px;
+      text-shadow:0 0 18px #ff003c;
+    }
+
+    .logo-login span{
+      color:#ff2b8a;
+    }
+
+    .lado-esquerdo h1{
+      font-size:42px;
+      line-height:1.1;
+      margin-bottom:18px;
+    }
+
+    .lado-esquerdo p{
+      font-size:16px;
+      line-height:1.6;
+      color:#f1d9ff;
+    }
+
+    .cosmeticos{
+      display:flex;
+      gap:15px;
+      margin-top:35px;
+    }
+
+    .icone{
+      width:70px;
+      height:70px;
+      border-radius:22px;
+      background:rgba(255,255,255,0.13);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:32px;
+      box-shadow:0 0 20px rgba(255,43,138,0.35);
+    }
+
+    .lado-direito{
+      flex:1;
+      padding:55px 45px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .lado-direito h2{
+      font-size:34px;
+      margin-bottom:8px;
+    }
+
+    .subtitulo{
+      color:#d9b8ff;
+      margin-bottom:35px;
+    }
+
+    .campo{
+      margin-bottom:24px;
+    }
+
+    .campo input{
+      width:100%;
+      padding:17px 18px;
+      background:rgba(255,255,255,0.16);
+      border:1px solid rgba(255,255,255,0.35);
+      border-radius:16px;
+      color:white;
+      font-size:15px;
+      outline:none;
+    }
+
+    .campo input::placeholder{
+      color:#ffffff;
+      opacity:0.9;
+    }
+
+    .campo input:focus{
+      border-color:#ff2b8a;
+      box-shadow:0 0 18px rgba(255,43,138,0.8);
+      background:rgba(255,255,255,0.22);
+    }
+
+    .opcoes{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:14px;
+      margin-bottom:28px;
+      color:#e4c8ff;
+    }
+
+    .opcoes a{
+      color:#ff5ca8;
+      text-decoration:none;
+    }
+
+    .botao{
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(90deg,#ff003c,#9d00ff);
+      color:white;
+      font-size:17px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 0 25px rgba(255,0,60,0.7);
+      transition:0.3s;
+    }
+
+    .botao:hover{
+      transform:translateY(-3px);
+      box-shadow:
+        0 0 25px #ff003c,
+        0 0 45px #9d00ff;
+    }
+
+    .cadastro{
+      margin-top:28px;
+      text-align:center;
+      color:#dcc4ff;
+    }
+
+    .cadastro a{
+      color:#ff5ca8;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    .dashboard{
+      width:100%;
+      height:100vh;
+      display:none;
+      animation:aparecer 1s;
+    }
+
+    @keyframes aparecer{
+      from{ opacity:0; transform:scale(1.05); }
+      to{ opacity:1; transform:scale(1); }
+    }
+
+    .menu{
+      width:250px;
+      height:100vh;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(15px);
+      border-right:1px solid rgba(255,255,255,0.2);
+      padding:30px 20px;
+      position:fixed;
+      left:0;
+      top:0;
+      z-index:10;
+    }
+
+    .logo-menu{
+      font-size:32px;
+      text-align:center;
+      margin-bottom:40px;
+      color:#ff2b8a;
+      text-shadow:0 0 15px #ff003c;
+    }
+
+    .menu button{
+      width:100%;
+      padding:15px;
+      margin-bottom:15px;
+      border:none;
+      border-radius:15px;
+      background:rgba(255,255,255,0.08);
+      color:white;
+      cursor:pointer;
+      text-align:left;
+      font-size:15px;
+      transition:0.3s;
+    }
+
+    .menu button:hover,
+    .menu button.ativo{
+      background:linear-gradient(90deg,#ff003c,#9d00ff);
+      box-shadow:0 0 15px #ff003c;
+      transform:translateX(5px);
+    }
+
+    .conteudo{
+      margin-left:270px;
+      padding:30px;
+      height:100vh;
+      overflow-y:auto;
+      position:relative;
+      z-index:4;
+    }
+
+    .topo{
+      margin-bottom:30px;
+    }
+
+    .topo h2{
+      font-size:35px;
+      margin-bottom:10px;
+    }
+
+    .topo p{
+      color:#f1d9ff;
+    }
+
+    .secao{
+      display:none;
+      animation:trocar 0.45s ease;
+    }
+
+    .secao.ativa{
+      display:block;
+    }
+
+    @keyframes trocar{
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    .cards{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .card{
+      width:220px;
+      padding:20px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.2);
+      box-shadow:0 0 15px rgba(157,0,255,0.2);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 0 25px rgba(255,43,138,0.45);
+    }
+
+    .card img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:15px;
+      margin-bottom:15px;
+    }
+
+    .card h3{
+      margin-bottom:10px;
+    }
+
+    .card p{
+      margin-bottom:15px;
+      color:#f1d9ff;
+    }
+
+    .card button,
+    .acao{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(90deg,#ff003c,#9d00ff);
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 0 14px rgba(255,0,60,0.4);
+      transition:0.3s;
+    }
+
+    .card button:hover,
+    .acao:hover{
+      transform:scale(1.03);
+      box-shadow:0 0 22px #ff003c;
+    }
+
+    .box{
+      margin-top:20px;
+      padding:25px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.2);
+      box-shadow:0 0 20px rgba(157,0,255,0.18);
+    }
+
+    .item{
+      margin-bottom:10px;
+      color:#ffd8ef;
+      padding:10px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.07);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .item button{
+      border:none;
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+      color:white;
+      background:#ff003c;
+    }
+
+    .total{
+      margin-top:20px;
+      font-size:22px;
+      color:#ff8ac7;
+    }
+
+    .grid-info{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:20px;
+    }
+
+    .info{
+      padding:24px;
+      border-radius:20px;
+      background:linear-gradient(145deg, rgba(255,0,60,0.18), rgba(157,0,255,0.16));
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow:0 0 18px rgba(255,43,138,0.18);
+    }
+
+    .info h3{
+      font-size:22px;
+      margin-bottom:8px;
+      color:#ff8ac7;
+    }
+
+    .info p{
+      color:#f1d9ff;
+      line-height:1.5;
+    }
+
+    .promo{
+      padding:25px;
+      border-radius:22px;
+      margin-bottom:18px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.2);
+      box-shadow:0 0 18px rgba(157,0,255,0.2);
+    }
+
+    .promo h3{
+      color:#ff8ac7;
+      margin-bottom:10px;
+    }
+
+    .conta-dados{
+      max-width:520px;
+    }
+
+    .conta-dados input{
+      width:100%;
+      margin-bottom:15px;
+      padding:15px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.3);
+      background:rgba(255,255,255,0.12);
+      color:white;
+      outline:none;
+    }
+
+    .conta-dados input::placeholder{
+      color:#f5dfff;
+    }
+
+    .bg-neon-dark {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      backdrop-filter: blur(15px);
+    }
+    
+    .bg-neon-dark h2, .bg-neon-dark h4, .bg-neon-dark h5, .bg-neon-dark h3 {
+      color: white !important;
+    }
+
+    .bg-neon-dark p, 
+    .bg-neon-dark .text-muted, 
+    .bg-neon-dark .text-white-50,
+    .bg-neon-dark span:not(.badge),
+    .bg-neon-dark label {
+      color: #f1d9ff !important;
+      opacity: 1 !important;
+    }
+    
+    .table-neon {
+      background: transparent !important;
+      color: white !important;
+    }
+    .table-neon th {
+      color: #ff8ac7 !important;
+      background: transparent !important;
+      border-bottom: 2px solid #ff006a !important;
+    }
+    .table-neon td {
+      color: #f1d9ff !important;
+      background: transparent !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .list-group-item {
+      background: transparent !important;
+      color: #f1d9ff !important;
+    }
+    .list-group-item span {
+      color: #f1d9ff !important;
+    }
+
+    .portfolio-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px rgba(255, 43, 138, 0.45);
+      border-color: #ff2b8a !important;
+    }
+
+    @media(max-width:800px){
+      body{
+        overflow:auto;
+      }
+
+      .container-login{
+        flex-direction:column;
+        position:relative;
+        top:auto;
+        left:auto;
+        transform:none;
+        margin:25px auto;
+      }
+
+      .dashboard{
+        height:auto;
+        min-height:100vh;
+      }
+
+      .menu{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .conteudo{
+        margin-left:0;
+        height:auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bolha bolha1"></div>
+  <div class="bolha bolha2"></div>
+  <div class="bolha bolha3"></div>
+
+  <header>
+    <main class="container-login" id="login">
+      <section class="lado-esquerdo">
+        <div class="logo-login">Glow<span>Beauty</span></div>
+
+        <h1>Bem-vinda ao seu world de beleza neon</h1>
+
+        <p>
+          Acesse sua conta para explorar produtos, maquiagens,
+          cuidados com a pele e novidades exclusivas.
+        </p>
+
+        <div class="cosmeticos">
+          <div class="icone" aria-label="Anahi">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="18" fill="none" stroke="#ff2b8a" stroke-width="2"/>
+              <circle cx="20" cy="15" r="6" fill="#ff2b8a" opacity="0.8"/>
+              <path d="M8 36c0-7 5.4-11 12-11s12 4 12 11" fill="#ff2b8a" opacity="0.8"/>
+              <text x="20" y="19" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="Arial">an</text>
+            </svg>
+          </div>
+          <div class="icone" aria-label="Rebecca">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="18" fill="none" stroke="#9d00ff" stroke-width="2"/>
+              <circle cx="20" cy="15" r="6" fill="#9d00ff" opacity="0.8"/>
+              <path d="M8 36c0-7 5.4-11 12-11s12 4 12 11" fill="#9d00ff" opacity="0.8"/>
+              <text x="20" y="19" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="Arial">re</text>
+            </svg>
+          </div>
+          <div class="icone" aria-label="Maria Paula">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="18" fill="none" stroke="#ff8ac7" stroke-width="2"/>
+              <circle cx="20" cy="15" r="6" fill="#ff8ac7" opacity="0.8"/>
+              <path d="M8 36c0-7 5.4-11 12-11s12 4 12 11" fill="#ff8ac7" opacity="0.8"/>
+              <text x="20" y="19" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="Arial">ma</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="lado-direito">
+        <h2>Login</h2>
+        <p class="subtitulo">Entre em sua conta</p>
+
+        <div class="campo">
+          <label for="nome" style="display:block; margin-bottom:6px; color:#d9b8ff; font-size:14px;">Nome de usuário</label>
+          <input type="text" id="nome" name="nome" placeholder="Nome de usuário" required minlength="2">
+        </div>
+
+        <div class="campo">
+          <label for="senha" style="display:block; margin-bottom:6px; color:#d9b8ff; font-size:14px;">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="Senha" required minlength="6">
+        </div>
+
+        <div class="opcoes">
+          <label>
+            <input type="checkbox">
+            Lembrar-me
+          </label>
+
+          <a href="#">Esqueci a senha</a>
+        </div>
+
+        <button class="botao" onclick="entrar()">Entrar</button>
+
+        <p class="cadastro">
+          Ainda não tem conta?
+          <a href="#">Criar cadastro</a>
+        </p>
+      </section>
+    </main>
+  </header>
+
+  <div class="dashboard" id="dashboard">
+    <nav class="menu">
+      <div class="logo-menu">GlowBeauty</div>
+
+      <button class="ativo" onclick="abrirSecao('dashboard-home', this)">🏠 Dashboard</button>
+      <button onclick="abrirSecao('produtos', this)">💄 Produtos</button>
+      <button onclick="abrirSecao('carrinho', this)">🛒 Carrinho</button>
+      <button onclick="abrirSecao('promocoes', this)">✨ Promoções</button>
+      <button onclick="abrirSecao('painel-controle', this)">📊 Painel de Controle</button>
+      <button onclick="abrirSecao('portifolio', this)">📋 Portfólio</button>
+      <button onclick="abrirSecao('conta', this)">👤 Minha Conta</button>
+      <button onclick="sair()">🚪 Sair</button>
+    </nav>
+
+    <main class="conteudo">
+
+      <section class="secao ativa" id="dashboard-home">
+        <div class="topo">
+          <h2 id="boasvindas">Olá ✨</h2>
+          <p>Bem-vinda ao painel principal da GlowBeauty</p>
+        </div>
+
+        <div style="display:flex; gap:25px; flex-wrap:wrap; align-items:flex-start;">
+
+          <div class="grid-info" style="flex:1; min-width:320px;">
+            <div class="info">
+              <h3>💄 Produtos</h3>
+              <p>Veja o catálogo de cosméticos disponíveis e adicione ao carrinho.</p>
+            </div>
+            <div class="info">
+              <h3>🛒 Carrinho</h3>
+              <p>Acompanhe os itens escolhidos e o valor total da compra.</p>
+            </div>
+            <div class="info">
+              <h3>✨ Promoções</h3>
+              <p>Confira ofertas neon especiais para clientes GlowBeauty.</p>
+            </div>
+          </div>
+
+          <div style="
+            width:340px;
+            height:320px;
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.2);
+            border-radius:25px;
+            padding:20px;
+            backdrop-filter:blur(10px);
+            box-shadow:0 0 25px rgba(255,0,120,0.25);
+          ">
+            <h3 style="margin-bottom:20px; color:#ff8ac7; font-size:24px;">📈 Vendas do Mês</h3>
+            <div style="height:220px; display:flex; align-items:flex-end; justify-content:space-around; gap:12px;">
+              <div style="text-align:center;">
+                <div style="width:45px; height:90px; background:linear-gradient(to top,#ff006a,#ff4da6); border-radius:12px 12px 0 0; box-shadow:0 0 15px #ff006a;"></div>
+                <p style="margin-top:8px;">Jan</p>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:45px; height:140px; background:linear-gradient(to top,#9d00ff,#d94dff); border-radius:12px 12px 0 0; box-shadow:0 0 15px #9d00ff;"></div>
+                <p style="margin-top:8px;">Fev</p>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:45px; height:190px; background:linear-gradient(to top,#ff006a,#9d00ff); border-radius:12px 12px 0 0; box-shadow:0 0 20px #ff2b8a;"></div>
+                <p style="margin-top:8px;">Mar</p>
+              </div>
+              <div style="text-align:center;">
+                <div style="width:45px; height:120px; background:linear-gradient(to top,#ff2b8a,#ff8ac7); border-radius:12px 12px 0 0; box-shadow:0 0 15px #ff2b8a;"></div>
+                <p style="margin-top:8px;">Abr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao" id="painel-controle">
+        <div class="container-fluid p-0">
+          <div class="row mb-4">
+            <div class="col">
+              <h2 class="display-5 text-start" style="color: #ff8ac7;">📊 Painel de Gerenciamento Integrado</h2>
+              <p class="text-muted" style="color: #f1d9ff !important;">Controle administrative de metas de vendas, estoque e tarefas pendentes.</p>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-md-4">
+              <div class="card bg-neon-dark p-3 border-0 shadow">
+                <h5 class="card-title text-uppercase small" style="color: #ff8ac7 !important; font-weight: bold;">Meta Coletiva Mensal</h5>
+                <h2 class="my-2" style="color: #ff006a !important; font-weight: bold;">R$ 15.000,00</h2>
+                <div class="progress bg-secondary-subtle" style="height: 8px;">
+                  <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="text-end small mt-1">75% Concluído</span>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="card bg-neon-dark p-3 border-0 shadow">
+                <h5 class="card-title text-uppercase small" style="color: #ff8ac7 !important; font-weight: bold;">Pedidos Concluídos</h5>
+                <h2 class="my-2" style="color: #9d00ff !important; font-weight: bold;">342 envios</h2>
+                <span class="small text-success" style="color: #198754 !important; font-weight: bold;">↑ 12% em relação a semana passada</span>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="card bg-neon-dark p-3 border-0 shadow">
+                <h5 class="card-title text-uppercase small" style="color: #ff8ac7 !important; font-weight: bold;">Taxa de Satisfação</h5>
+                <h2 class="my-2" style="color: #ff006a !important; font-weight: bold;">4.9 / 5.0</h2>
+                <span class="small">Baseado em 120 feedbacks avaliados</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-7">
+              <div class="p-4 rounded-4 bg-neon-dark h-100 shadow">
+                <h4 class="mb-3" style="font-weight: bold; color: #ff8ac7 !important;">💰 Planilha de Investimentos & Gastos</h4>
+                <div class="table-responsive">
+                  <table class="table table-borderless table-neon align-middle">
+                    <thead>
+                      <tr>
+                        <th>Setor/Insumo</th>
+                        <th>Responsável</th>
+                        <th>Status</th>
+                        <th class="text-end">Custo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Matéria prima (Pigmentos Neon)</td>
+                        <td>Rebecca</td>
+                        <td><span class="badge bg-success rounded-pill">Pago</span></td>
+                        <td class="text-end" style="font-weight: bold;">R$ 1.250,00</td>
+                      </tr>
+                      <tr>
+                        <td>Design de Embalagens Sustentáveis</td>
+                        <td>Anahi</td>
+                        <td><span class="badge bg-warning text-dark rounded-pill">Pendente</span></td>
+                        <td class="text-end" style="font-weight: bold;">R$ 890,00</td>
+                      </tr>
+                      <tr>
+                        <td>Infraestrutura e Hospedagem Cloud</td>
+                        <td>Maria Paula</td>
+                        <td><span class="badge bg-success rounded-pill">Pago</span></td>
+                        <td class="text-end" style="font-weight: bold;">R$ 150,00</td>
+                      </tr>
+                      <tr>
+                        <td>Marketing e Tráfego Pago</td>
+                        <td>Equipe</td>
+                        <td><span class="badge bg-danger rounded-pill">Atrasado</span></td>
+                        <td class="text-end" style="font-weight: bold;">R$ 450,00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-5">
+              <div class="p-4 rounded-4 bg-neon-dark h-100 shadow">
+                <h4 class="mb-3" style="font-weight: bold; color: #ff8ac7 !important;">📝 Listagem de Tarefas</h4>
+                <div class="list-group list-group-flush bg-transparent">
+                  <label class="list-group-item bg-transparent border-bottom border-light-subtle d-flex justify-content-between align-items-center py-2 px-0">
+                    <div class="d-flex align-items-center">
+                      <input class="form-check-input me-3 bg-secondary-subtle" type="checkbox" checked readonly>
+                      <span class="text-decoration-line-through text-muted" style="color: #888 !important;">Ajustar Layout com Flexbox/Grid</span>
+                    </div>
+                    <span class="badge bg-secondary">Concluído</span>
+                  </label>
+                  <label class="list-group-item bg-transparent border-bottom border-light-subtle d-flex justify-content-between align-items-center py-2 px-0">
+                    <div class="d-flex align-items-center">
+                      <input class="form-check-input me-3 bg-secondary-subtle" type="checkbox" checked readonly>
+                      <span class="text-decoration-line-through text-muted" style="color: #888 !important;">Validação de formulários W3C</span>
+                    </div>
+                    <span class="badge bg-secondary">Concluído</span>
+                  </label>
+                  <label class="list-group-item bg-transparent border-bottom border-light-subtle d-flex justify-content-between align-items-center py-2 px-0">
+                    <div class="d-flex align-items-center">
+                      <input class="form-check-input me-3" type="checkbox" id="task3">
+                      <span>Subir aplicação em servidor estático</span>
+                    </div>
+                    <span class="badge bg-danger">Urgente</span>
+                  </label>
+                  <label class="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center py-2 px-0">
+                    <div class="d-flex align-items-center">
+                      <input class="form-check-input" type="checkbox" id="task4" style="margin-right: 1rem;">
+                      <span>Montar slides para o Pitch Final</span>
+                    </div>
+                    <span class="badge bg-warning text-dark">Pendente</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao" id="portifolio">
+        <div class="container-fluid p-0">
+          <div class="row mb-5">
+            <div class="col-12 text-center py-4 rounded-4 bg-neon-dark shadow">
+              <h2 class="display-4 fw-bold" style="color: #ff8ac7 !important;">📋 Portfólio dos Desenvolvedores</h2>
+              <p class="fs-5 mt-2" style="color: #f1d9ff !important;">
+                A equipe GlowBeauty possui como objetivo apresentar boa qualidade em seu trabalho como também acessibilidade na compra de seus produtos. GlowBeauty é constituída por três jovens mulheres cujos nomes são Anahi, Rebecca e Maria Paula. Elas estudam Desenvolvimento de Software Multiplataforma na faculdade Fatec e procuram aprender mais sobre programação.
+              </p>
+            </div>
+          </div>
+
+          <div class="row g-4 justify-content-center">
+            
+            <div class="col-12 col-md-4">
+              <div class="card h-100 rounded-4 text-center p-4 portfolio-card shadow">
+                <div class="mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center border border-2" style="width: 90px; height: 90px; border-color: #ff003c !important; font-size: 32px; background: rgba(255,0,60,0.15);">
+                  👩‍💻
+                </div>
+                <h4 class="card-title fw-bold" style="color: #ff006a !important;">Anahi</h4>
+                <p class="card-text text-start small">
+                  Responsável pela arquitetura conceitual de layouts modernos, paleta de cores voltada à identidade neon, estilizações avançadas e pela implementação do Bootstrap e das funções em JavaScript que dão vida ao site.
+                </p>
+                <div class="mt-auto pt-3 border-top border-secondary-subtle d-flex justify-content-around">
+                  <a href="https://github.com/anahimaciel2/repositorio.git" target="_blank" class="text-decoration-none small" style="color: #ff006a; font-weight: bold;">GitHub ↗</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="card h-100 rounded-4 text-center p-4 portfolio-card shadow">
+                <div class="mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center border border-2" style="width: 90px; height: 90px; border-color: #9d00ff !important; font-size: 32px; background: rgba(157,0,255,0.15);">
+                  🚀
+                </div>
+                <h4 class="card-title fw-bold" style="color: #9d00ff !important;">Rebecca</h4>
+                <p class="card-text text-start small">
+                  Responsável pela organização estrutural das tags HTML. Também ajudou na parte das pesquisas do projeto e na criação do código principal.
+                </p>
+                <div class="mt-auto pt-3 border-top border-secondary-subtle d-flex justify-content-around">
+                  <a href="https://github.com/rebeccapadovan/DesenvolvimentoWEB.git" target="_blank" class="text-decoration-none small" style="color: #ff006a; font-weight: bold;">GitHub ↗</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="card h-100 rounded-4 text-center p-4 portfolio-card shadow">
+                <div class="mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center border border-2" style="width: 90px; height: 90px; border-color: #ff8ac7 !important; font-size: 32px; background: rgba(255,138,199,0.15);">
+                  📊
+                </div>
+                <h4 class="card-title fw-bold" style="color: #ff8ac7 !important;">Maria Paula</h4>
+                <p class="card-text text-start small">
+                  Dona do portfólio e responsável por cuidar das metas do projeto, organizar as tarefas do grupo e ajudar na montagem das páginas.
+                </p>
+                <div class="mt-auto pt-3 border-top border-secondary-subtle d-flex justify-content-around">
+                  <a href="https://github.com/MariaP590/DesenvolvimentoWEB.git" target="_blank" class="text-decoration-none small" style="color: #ff006a; font-weight: bold;">GitHub ↗</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="secao" id="produtos">
+        <div class="topo">
+          <h2>Produtos GlowBeauty</h2>
+          <p>Confira os cosméticos mais vendidos</p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop">
+            <h3>Batom Neon</h3>
+            <p>R$ 49,90</p>
+            <button onclick="adicionar('Batom Neon',49.90)">Adicionar</button>
+          </div>
+
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800&auto=format&fit=crop">
+            <h3>Kit SkinCare</h3>
+            <p>R$ 89,90</p>
+            <button onclick="adicionar('Kit SkinCare',89.90)">Adicionar</button>
+          </div>
+
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?q=80&w=800&auto=format&fit=crop">
+            <h3>Perfume Glow</h3>
+            <p>R$ 129,90</p>
+            <button onclick="adicionar('Perfume Glow',129.90)">Adicionar</button>
+          </div>
+
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=800&auto=format&fit=crop">
+            <h3>Gloss Roxo</h3>
+            <p>R$ 39,90</p>
+            <button onclick="adicionar('Gloss Roxo',39.90)">Adicionar</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao" id="carrinho">
+        <div class="topo">
+          <h2>🛒 Carrinho</h2>
+          <p>Produtos adicionados aparecem aqui</p>
+        </div>
+
+        <div class="box">
+          <div id="lista"></div>
+          <div class="total" id="total">Total: R$ 0,00</div>
+          <br>
+          <button class="acao" onclick="finalizarCompra()">Finalizar compra</button>
+        </div>
+      </section>
+
+      <section class="secao" id="promocoes">
+        <div class="topo">
+          <h2>✨ Promoções</h2>
+          <p>Ofertas especiais para você brilhar</p>
+        </div>
+
+        <div class="promo">
+          <h3>Combo Neon</h3>
+          <p>Leve Batom Neon + Gloss Roxo com desconto especial.</p>
+        </div>
+
+        <div class="promo">
+          <h3>Semana Glow</h3>
+          <p>Frete grátis em compras acima de R$ 150,00.</p>
+        </div>
+
+        <div class="promo">
+          <h3>Cliente VIP</h3>
+          <p>Ganhe pontos em cada compra para trocar por produtos.</p>
+        </div>
+      </section>
+
+      <section class="secao" id="conta">
+        <div class="topo">
+          <h2>👤 Minha Conta</h2>
+          <p>Dados do seu perfil</p>
+        </div>
+
+        <div class="box conta-dados">
+          <label for="nomeConta" style="display:block; margin-bottom:5px; color:#d9b8ff; font-size:14px;">Nome</label>
+          <input type="text" id="nomeConta" name="nomeConta" placeholder="Nome" required minlength="2">
+
+          <label for="emailConta" style="display:block; margin-bottom:5px; color:#d9b8ff; font-size:14px;">E-mail</label>
+          <input type="email" id="emailConta" name="emailConta" placeholder="E-mail" required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
+
+          <label for="prefConta" style="display:block; margin-bottom:5px; color:#d9b8ff; font-size:14px;">Preferência</label>
+          <input type="text" id="prefConta" name="prefConta" placeholder="Preferência: maquiagem, skincare, perfume...">
+
+          <button class="acao" onclick="salvarConta()">Salvar alterações</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer id="rodape" style="
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 18px 30px;
+    text-align: center;
+    color: #d9b8ff;
+    font-size: 13px;
+  ">
+    <p style="margin-bottom:6px; color:#d9b8ff;">
+      &copy; 2026 GlowBeauty &mdash; Anahi, Rebecca e Maria Paula &mdash; Todos os direitos reservados.
+    </p>
+    <p style="color:#9d6fbf; font-size:12px;">
+      Interface desenvolvida com 
+      <a href="https://getbootstrap.com" target="_blank" style="color:#ff5ca8; text-decoration:none;">Bootstrap 5.3.2</a>
+      &mdash; MIT License.
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let total = 0;
+    let carrinho = [];
+
+    function entrar(){
+      let nome = document.getElementById("nome").value.trim();
+
+      if(nome === ""){
+        alert("Digite seu nome");
+        return;
+      }
+
+      document.getElementById("login").style.opacity = "0";
+
+      setTimeout(() => {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("dashboard").style.display = "flex";
+      }, 800);
+
+      document.getElementById("boasvindas").innerHTML = "Olá, " + nome + " ✨";
+      document.getElementById("nomeConta").value = nome;
+    }
+
+    function abrirSecao(idSecao, botao){
+      let secoes = document.querySelectorAll(".secao");
+      secoes.forEach(secao => secao.classList.remove("ativa"));
+
+      document.getElementById(idSecao).classList.add("ativa");
+
+      let botoes = document.querySelectorAll(".menu button");
+      botoes.forEach(btn => btn.classList.remove("ativo"));
+
+      botao.classList.add("ativo");
+    }
+
+    function adicionar(produto, valor){
+      carrinho.push({produto, valor});
+      total += valor;
+
+      atualizarCarrinho();
+      alert(produto + " foi adicionado ao carrinho!");
+    }
+
+    function atualizarCarrinho(){
+      let lista = document.getElementById("lista");
+      if(!lista) return;
+      lista.innerHTML = "";
+
+      if(carrinho.length === 0){
+        lista.innerHTML = "<p style='color:#f1d9ff'>Seu carrinho está vazio.</p>";
+      }
+
+      carrinho.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.classList.add("item");
+
+        div.innerHTML = `
+          <span>${item.produto} - R$ ${item.valor.toFixed(2).replace(".", ",")}</span>
+          <button onclick="removerItem(${index})">Remover</button>
+        `;
+
+        lista.appendChild(div);
+      });
+
+      document.getElementById("total").innerHTML =
+        "Total: R$ " + total.toFixed(2).replace(".", ",");
+    }
+
+    function removerItem(index){
+      total -= carrinho[index].valor;
+      carrinho.splice(index, 1);
+      atualizarCarrinho();
+    }
+
+    function finalizarCompra(){
+      if(carrinho.length === 0){
+        alert("Seu carrinho está vazio!");
+        return;
+      }
+
+      alert("Compra finalizada com sucesso! Total: R$ " + total.toFixed(2).replace(".", ","));
+
+      carrinho = [];
+      total = 0;
+      atualizarCarrinho();
+    }
+
+    function salvarConta(){
+      alert("Dados salvos com sucesso!");
+    }
+
+    function sair(){
+      location.reload();
+    }
+
+    atualizarCarrinho();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+.container {
+    padding: 2px; /* espaço interno */
+    gap: 10px; /* espaço entre os cards */
+    display: flex; /* faz os itens filhos ficarem um ao lado do outro */
+}
+
+.card-gato, .card-laranja, .card-moranguinho, .card-bananas {
+    width: 300px; /* largura */
+    height: 300px; /* altura */
+    padding: 10px; /* espaço interno */
+    text-align: center; /* alinhar textos ao centro */
+}
+
+.card-gato {
+    background-color: rgba(239, 197, 114, 0.629); /* cor do plano de fundo */
+}
+
+.card-laranja {
+    background-color: rgba(255, 161, 74, 0.803); /* cor do plano de fundo */
+}
+
+.card-moranguinho {
+    background-color: rgba(224, 89, 89, 0.964); /* cor do plano de fundo */
+}
+
+.card-bananas {
+    background-color: rgba(255, 225, 91, 0.955); /* cor do plano de fundo */
+}
+
+img {
+  width: 200px; /* largura */
+  height: 200px; /* altura */
+}
+
+button {
+    color: white; /* cor da letra */
+    background-color: rgb(61, 61, 167); /* cor do plano de fundo */
+}
+
+h3{
+    font-size: 15px; /* muda o tamanho da fonte */
+    margin: 5px; /* espaço externo */
+}
+
+p {
+    font-size: 12px; /* muda o tamanho da fonte */
+}
